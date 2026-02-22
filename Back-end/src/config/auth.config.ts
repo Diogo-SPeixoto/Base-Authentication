@@ -22,3 +22,6 @@ export const optionsRefreshToken: CookieSerializeOptions = {
 
 export const accessTokenExpires ="15m"
 export const refreshTokenExpires ="3d"
+
+export const MAX_LOGIN_ATTEMPTS = 5;
+export const LOGIN_BLOCK_TIME = 60 * 15;

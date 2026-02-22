@@ -17,6 +17,12 @@ export const ErrorCatalog = {
     message: "Invalid email or password.",
     code: "INVALID_CREDENTIALS",
   },
+  USER_BLOCKED: {
+    status: 429,
+    error: "User blocked",
+    message: "Many attempts. Try again later.",
+    code: "USER_BLOCKED",
+  },
   INVALID_AUTH_TOKEN: {
     status: 401,
     error: "Unauthorized",

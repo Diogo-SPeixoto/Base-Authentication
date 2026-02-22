@@ -8,6 +8,7 @@ import corsPlugin from "./plugins/cors.js";
 import { ErrorCatalog } from "./errors";
 import { authRoutes } from "./routes/auth";
 import prismaPlugin from "./plugins/prisma";
+import redisPlugin from "./plugins/redis";
 
 type BusinessErrorCode = keyof typeof ErrorCatalog;
 
@@ -15,6 +16,7 @@ export function buildApp() {
   const app = fastify();
 
   app.register(corsPlugin);
+  app.register(redisPlugin);
   app.register(prismaPlugin);
   app.register(cookiePlugin);
   app.register(jwtPlugin);

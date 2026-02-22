@@ -4,26 +4,26 @@ import { loginService } from "../services/auth.service";
 import { prisma } from "../plugins/prisma";
 import { accessTokenExpires, optionsAccessToken, optionsRefreshToken, refreshTokenExpires } from "../config/auth.config";
 
-export async function loginHandler(req: FastifyRequest, res: FastifyReply) {
-  const data = loginUserSchema.parse(req.body);
-  const tokenPayload = await loginService(data);
+  export async function loginHandler(req: FastifyRequest, res: FastifyReply) {
+    const data = loginUserSchema.parse(req.body);
+    const tokenPayload = await loginService(req.server, data);
 
-  const accessToken = res.server.jwt.sign(tokenPayload, {
-    expiresIn: accessTokenExpires,
-  });
-  const refreshToken = res.server.jwt.sign(tokenPayload, {
-    expiresIn: refreshTokenExpires,
-  });
+    const accessToken = res.server.jwt.sign(tokenPayload, {
+      expiresIn: accessTokenExpires,
+    });
+    const refreshToken = res.server.jwt.sign(tokenPayload, {
+      expiresIn: refreshTokenExpires,
+    });
 
-  res.setCookie("accessToken", accessToken, optionsAccessToken);
+    res.setCookie("accessToken", accessToken, optionsAccessToken);
 
-  res.setCookie("refreshToken", refreshToken, optionsRefreshToken);
+    res.setCookie("refreshToken", refreshToken, optionsRefreshToken);
 
-  return res.status(200).send({
-    accessToken: accessToken,
-    refreshToken: refreshToken
-  });
-}
+    return res.status(200).send({
+      accessToken: accessToken,
+      refreshToken: refreshToken
+    });
+  }
 
 export async function logoutHandler(req: FastifyRequest, res: FastifyReply) {
   res.clearCookie("accessToken", {
